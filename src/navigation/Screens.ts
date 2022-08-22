@@ -3,6 +3,6 @@ export enum Screens {
 
   HOME = 'HOME',
   FAVORITE = 'FAVORITE',
-  NEWS = 'NEWS',
+  KNOWLEDGE = 'KNOWLEDGE',
   PROFILE = 'PROFILE',
 }

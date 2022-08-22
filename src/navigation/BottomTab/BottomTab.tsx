@@ -9,9 +9,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {IconSvgTabFavorite} from '../../assets/icons/tab/IconSvgTabFavorite';
 import {IconSvgTabRating} from '../../assets/icons/tab/IconSvgTabRating';
 import {IconSvgTabProfile} from '../../assets/icons/tab/IconSvgTabProfile';
-import { FavoriteScreen } from "../../screens/main/tab/FavoriteScreen";
-import { NewsScreen } from "../../screens/main/tab/NewsScreen";
-import { ProfileScreen } from "../../screens/main/tab/ProfileScreen";
+import {FavoriteScreen} from '../../screens/main/tab/FavoriteScreen';
+import {KnowledgeScreen} from '../../screens/main/tab/KnowledgeScreen';
+import {ProfileScreen} from '../../screens/main/tab/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,12 +46,12 @@ export const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name={Screens.NEWS}
-        component={NewsScreen}
+        name={Screens.KNOWLEDGE}
+        component={KnowledgeScreen}
         options={{
           tabBarActiveTintColor: Colors.blue,
           tabBarLabelStyle,
-          tabBarLabel: 'Новости',
+          tabBarLabel: 'База знаний',
           tabBarIcon: () => <IconSvgTabRating />,
         }}
       />
