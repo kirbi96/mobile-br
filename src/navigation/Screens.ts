@@ -6,4 +6,6 @@ export enum Screens {
   ADD = 'ADD',
   KNOWLEDGE = 'KNOWLEDGE',
   PROFILE = 'PROFILE',
+
+  ADD_IN = 'ADD_IN',
 }

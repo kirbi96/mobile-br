@@ -7,6 +7,7 @@ export enum AgEnum {
   H1 = 'h1',
   H2 = 'h2',
   Subtitle = 'subtitle',
+  Title = 'title',
   Body = 'body',
   Description = 'description',
   Small = 'small',
@@ -48,14 +49,19 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontFamily: 'Mipgost',
   },
-  [AgEnum.Subtitle]: {
-    fontSize: 15,
-    lineHeight: 18,
-    fontFamily: 'Mipgost',
-  },
   [AgEnum.Body]: {
     fontSize: 18,
     lineHeight: 20,
+    fontFamily: 'Mipgost',
+  },
+  [AgEnum.Title]: {
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: 'Mipgost',
+  },
+  [AgEnum.Subtitle]: {
+    fontSize: 15,
+    lineHeight: 18,
     fontFamily: 'Mipgost',
   },
   [AgEnum.Description]: {

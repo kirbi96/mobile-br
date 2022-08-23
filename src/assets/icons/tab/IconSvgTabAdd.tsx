@@ -1,6 +1,7 @@
 import React from 'react';
 import Svg, {G, Path, Defs, LinearGradient, Stop} from 'react-native-svg';
 import {IIcon} from '../../../base/types/BaseTypes';
+import { Colors } from "../../../styles/Colors";
 
 export const IconSvgTabAdd = ({size, color}: IIcon) => {
   return (
@@ -14,7 +15,7 @@ export const IconSvgTabAdd = ({size, color}: IIcon) => {
     >
       <Path
         style={{
-          fill: "#009fd3",
+          fill: color === Colors.white ? Colors.yellow : "#009fd3",
         }}
         d="M230.4 320h179.189v95.998H230.4z"
       />
@@ -62,7 +63,7 @@ export const IconSvgTabAdd = ({size, color}: IIcon) => {
       />
       <Path
         style={{
-          fill: "#009fd3",
+          fill: color === Colors.white ? Colors.yellow : "#009fd3",
         }}
         d="M102.4 320h85.333v138.667H102.4z"
       />
