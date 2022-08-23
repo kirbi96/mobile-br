@@ -28,7 +28,7 @@ export const Text = (props: IText) => {
       style={[
         styles[Ag],
         {
-          color: color || Colors.black_70,
+          color: color || Colors.white,
           textAlign: align || 'auto',
         },
         props.style,

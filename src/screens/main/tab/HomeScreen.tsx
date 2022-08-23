@@ -10,6 +10,7 @@ export const HomeScreen = () => {
   return (
     <View style={{flex: 1, flexDirection: 'column'}}>
       <YaMap
+        nightMode={true}
         userLocationIcon={{
           uri: 'https://www.clipartmax.com/png/middle/180-1801760_pin-png.png',
         }}

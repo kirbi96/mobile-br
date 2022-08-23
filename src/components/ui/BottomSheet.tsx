@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import {AgEnum, Text} from './Text';
 import {Colors} from '../../styles/Colors';
@@ -23,7 +23,7 @@ export const BottomSheet = () => {
         data={Array.from({length: 20}).map((_, i) => String(i))}
         keyExtractor={i => i}
         renderItem={({item}: any) => (
-          <View style={styles.item}>
+          <TouchableOpacity style={styles.item}>
             <Image source={{uri: exImage}} style={styles.image} />
             <View style={styles.textContainer}>
               <Text Ag={AgEnum.Body}>Квартира {+item + 1}</Text>
@@ -31,7 +31,7 @@ export const BottomSheet = () => {
                 Краткое описание для квартиры {+item + 1}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
         contentContainerStyle={styles.contentContainerStyle}
       />
@@ -50,27 +50,29 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     padding: 16,
-    backgroundColor: Colors.light_grey,
+    backgroundColor: Colors.gray800,
   },
   header: {
     alignItems: 'center',
-    backgroundColor: Colors.light_grey,
+    backgroundColor: Colors.gray800,
+    borderWidth: 2,
+    borderColor: Colors.gray700,
     paddingVertical: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderBottomColor: Colors.black_30,
-    borderBottomWidth: 1,
+    // borderBottomColor: Colors.white,
   },
   panelHandle: {
     width: 40,
     height: 2,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: Colors.gray700,
     borderRadius: 4,
   },
   item: {
     padding: 20,
+    borderRadius: 6,
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: Colors.gray700,
     marginVertical: 10,
   },
   textContainer: {

@@ -22,4 +22,6 @@ export const Colors = {
   shadow: 'rgba(0, 0, 0, 0.05)',
   gray300: '#B4B4B4',
   gray600: '#6A6A6A',
+  gray700: '#333437',
+  gray800: '#202123',
 };
