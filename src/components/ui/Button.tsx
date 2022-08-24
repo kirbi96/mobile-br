@@ -65,7 +65,7 @@ export const Button = (props: IButtonProps) => {
           Ag={AgEnum.Body}
           color={color}
           style={{marginLeft: startIcon ? 8 : 0, marginRight: endIcon ? 8 : 0}}>
-          {title.toUpperCase()}
+          {title}
         </Text>
       ) : (
         <ActivityIndicator color={color} />
