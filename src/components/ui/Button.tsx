@@ -26,6 +26,7 @@ interface IButtonProps extends TouchableOpacityProps {
   size?: 'large' | 'medium' | 'small';
   textColor?: string;
   disabled?: boolean;
+  top?: number;
 }
 
 export const Button = (props: IButtonProps) => {
@@ -39,6 +40,7 @@ export const Button = (props: IButtonProps) => {
     size = 'large',
     textColor,
     disabled,
+    top = 16,
   } = props;
 
   const color = useMemo(() => {
@@ -57,7 +59,7 @@ export const Button = (props: IButtonProps) => {
   return (
     <TouchableOpacity
       onPress={loading || disabled ? undefined : props.onPress}
-      style={buttonStyles}
+      style={[buttonStyles, {marginTop: top}]}
       activeOpacity={props.activeOpacity}>
       {!loading && startIcon}
       {!loading ? (
