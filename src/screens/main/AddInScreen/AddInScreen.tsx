@@ -32,11 +32,19 @@ export const AddInScreen = () => {
   useEffect(() => {
     register('address');
     register('floor');
+    register('floor_home');
     register('rooms');
+    register('area');
     register('balcony');
+    register('conditioner');
+    register('fridge');
+    register('stove');
+    register('microwave');
+    register('washing');
+    register('wifi');
+    register('price');
+    register('pledge');
   }, []);
-
-  console.log(123123, watch('balcony'));
 
   return (
     <>
@@ -76,6 +84,16 @@ export const AddInScreen = () => {
           />
 
           <Input
+            label={'Этажей в доме'}
+            inputKey={'floor_home'}
+            error={''}
+            value={watch('floor_home')}
+            onChangeText={handleChange}
+            keyboardType={'numeric'}
+            maxLength={2}
+          />
+
+          <Input
             label={'Количество комнат'}
             inputKey={'rooms'}
             error={''}
@@ -85,12 +103,19 @@ export const AddInScreen = () => {
             maxLength={1}
           />
 
-          <CustomCheckBox
-            value={watch('balcony')}
-            handleChange={handleChange}
-            inputKey={'balcony'}
-            text={'Балкон'}
+          <Input
+            label={'Площадь квартиры'}
+            inputKey={'area'}
+            error={''}
+            value={watch('area')}
+            onChangeText={handleChange}
+            keyboardType={'numeric'}
+            maxLength={3}
           />
+
+          <Text style={{marginTop: 16}} Ag={AgEnum.Body}>
+            Техника
+          </Text>
 
           <CustomCheckBox
             value={watch('balcony')}
@@ -100,17 +125,63 @@ export const AddInScreen = () => {
           />
 
           <CustomCheckBox
-            value={watch('balcony')}
+            value={watch('conditioner')}
             handleChange={handleChange}
-            inputKey={'balcony'}
-            text={'Балкон'}
+            inputKey={'conditioner'}
+            text={'Кондиционер'}
           />
 
           <CustomCheckBox
-            value={watch('balcony')}
+            value={watch('fridge')}
             handleChange={handleChange}
-            inputKey={'balcony'}
-            text={'Балкон'}
+            inputKey={'fridge'}
+            text={'Холодильник'}
+          />
+
+          <CustomCheckBox
+            value={watch('stove')}
+            handleChange={handleChange}
+            inputKey={'stove'}
+            text={'Плита'}
+          />
+
+          <CustomCheckBox
+            value={watch('microwave')}
+            handleChange={handleChange}
+            inputKey={'microwave'}
+            text={'Микроволновка'}
+          />
+
+          <CustomCheckBox
+            value={watch('washing')}
+            handleChange={handleChange}
+            inputKey={'washing'}
+            text={'Стиральная машина'}
+          />
+
+          <CustomCheckBox
+            value={watch('wifi')}
+            handleChange={handleChange}
+            inputKey={'wifi'}
+            text={'Wi-Fi'}
+          />
+
+          <Input
+            label={'Арендная плата, ₽'}
+            inputKey={'price'}
+            error={''}
+            value={watch('price')}
+            onChangeText={handleChange}
+            keyboardType={'numeric'}
+          />
+
+          <Input
+            label={'Залог, ₽'}
+            inputKey={'pledge'}
+            error={''}
+            value={watch('pledge')}
+            onChangeText={handleChange}
+            keyboardType={'numeric'}
           />
 
           <Button onPress={handleSubmit(sendData)} title={'create'} />
@@ -130,7 +201,7 @@ export const AddInScreen = () => {
 
 const styles = StyleSheet.create({
   ownerContainer: {
-    marginTop: 6,
+    marginTop: 3,
     flexDirection: 'row',
   },
   ownerBtn: {
