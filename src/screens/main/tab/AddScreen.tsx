@@ -14,7 +14,7 @@ export enum EAdsType {
 
 export const AddScreen = () => {
   const navigateToAddInScreen = (type: EAdsType) => {
-    navigation.navigate(Screens.ADD_IN, {type});
+    navigation.navigate(Screens.ADD_APPLICATION, {type});
   };
 
   return (

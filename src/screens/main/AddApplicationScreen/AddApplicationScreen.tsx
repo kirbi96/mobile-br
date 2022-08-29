@@ -10,7 +10,7 @@ import {AlertModal} from '../../../components/ui/AlertModal';
 import {useForm} from 'react-hook-form';
 import {CustomCheckBox} from '../../../components/ui/CustomCheckBox';
 
-export const AddInScreen = () => {
+export const AddApplicationScreen = () => {
   const [showOwnerModal, setShowOwnerModal] = useState(false);
 
   const {
@@ -184,7 +184,11 @@ export const AddInScreen = () => {
             keyboardType={'numeric'}
           />
 
-          <Button onPress={handleSubmit(sendData)} title={'create'} />
+          <Button
+            style={{marginBottom: 16}}
+            onPress={handleSubmit(sendData)}
+            title={'create'}
+          />
         </View>
       </ScrollView>
 
