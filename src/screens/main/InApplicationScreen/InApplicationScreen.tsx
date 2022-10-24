@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {containerStyle} from '../../../styles/containerStyle';
 import {AgEnum, Text} from '../../../components/ui/Text';
 import {Header} from '../../../components/ui/Header';
-import {DimensionHelper} from '../../../helpers/DimensionHelper';
+import {CustomCarousel} from '../../../components/ui/CustomCarousel';
+import {Colors} from '../../../styles/Colors';
+import {Button} from '../../../components/ui/Button';
 
 const images = [
   {
@@ -44,20 +40,24 @@ const images = [
   },
 ];
 
+const tags = [
+  'Балкон',
+  'Кондиционер',
+  'Холодильник',
+  'Плита',
+  'Микроволновка',
+  'Стиральная машина',
+  'Wi-Fi',
+];
+
 export const InApplicationScreen = () => {
   return (
     <ScrollView>
       <Header />
 
-      <ScrollView horizontal={true} style={{flex: 1, marginBottom: 16}}>
-        {images.map(i => (
-          <TouchableOpacity style={{marginLeft: 16}} key={i.id}>
-            <Image style={styles.image} source={{uri: i.image}} />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <CustomCarousel carouselData={images} />
 
-      <View style={containerStyle}>
+      <View style={[containerStyle, {marginTop: 16}]}>
         <Text Ag={AgEnum.H1}>Сдается</Text>
         <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
           Адресс:
@@ -72,20 +72,43 @@ export const InApplicationScreen = () => {
         <Text Ag={AgEnum.Body}>Комнат 3, Общая площадь 68 м², Этаж 5 из 9</Text>
 
         <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
+          Удобства:
+        </Text>
+
+        <View style={styles.tagsContainer}>
+          {tags.map(tag => (
+            <View style={styles.tagItem}>
+              <Text Ag={AgEnum.Body}>{tag}</Text>
+            </View>
+          ))}
+        </View>
+
+        <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
           Стоимость:
         </Text>
         <Text Ag={AgEnum.Body}>Цена: 22000 ₽</Text>
         <Text Ag={AgEnum.Body}>Залог: 2000 ₽</Text>
+
+        <Button title={'Связаться'} />
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: DimensionHelper.width * 0.8,
-    // marginLeft: 16,
+  tagsContainer: {
+    marginTop: 6,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: -6,
+  },
+  tagItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: Colors.blue,
     borderRadius: 6,
-    height: 220,
+    marginTop: 6,
+    alignSelf: 'flex-start',
+    marginLeft: 6,
   },
 });
