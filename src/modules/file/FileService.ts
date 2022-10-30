@@ -8,7 +8,9 @@ export default class FileService {
   }
 
   sendFile = async (file: any): Promise<any> => {
-    const {data} = await this.fileApi.sendFile(file);
-    return data;
+    // const {data} = await this.fileApi.sendFile(file);
+    // return data;
+
+    return {ex: 'ex'};
   };
 }

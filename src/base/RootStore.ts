@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {FileStore} from '../modules/file/FileStore';
+import {ApplicationStore} from '../modules/application/ApplicationStore';
 
 class RootStore {
   fileStore: FileStore;
+  applicationStore: ApplicationStore;
 
   constructor() {
     this.fileStore = new FileStore();
+    this.applicationStore = new ApplicationStore();
   }
 
   sync = async () => {

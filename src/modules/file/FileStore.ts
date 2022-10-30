@@ -1,5 +1,6 @@
 import FileService from './FileService';
 import {makeAutoObservable, runInAction} from 'mobx';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 export class FileStore {
   loader: boolean = false;
@@ -13,15 +14,31 @@ export class FileStore {
     this.fileService = new FileService();
   }
 
-  sendFile = async (data: any) => {
+  sendFile = async () => {
     this.setLoading(true);
 
     try {
-      const res = await this.fileService.sendFile(data);
+      const res = await launchImageLibrary(
+        {mediaType: 'photo'},
+        pickerRes => pickerRes,
+      );
 
-      runInAction(() => {
-        this.files = res;
-      });
+      if (res.assets) {
+        const formData = new FormData();
+
+        const sendFileData = res.assets.map(item => ({
+          type: item.type,
+          name: item.fileName,
+          uri: item.uri,
+        }));
+
+        formData.append('file', sendFileData);
+
+        const serverFilesRes = await this.fileService.sendFile(formData);
+        const localFilesRes = res.assets;
+
+        return {serverFilesRes, localFilesRes};
+      }
     } catch (e) {
       console.log('Error', e);
     } finally {
