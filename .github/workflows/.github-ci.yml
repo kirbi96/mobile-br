@@ -50,18 +50,18 @@ jobs:
       - name: Generate App APK
         run: |
           cd android && ./gradlew assembleRelease --no-daemon
-      - name: send telegram message on push
-        uses: appleboy/telegram-action@master
-        with:
-#          to: ${{ secrets.TELEGRAM_TO }}
-#          token: ${{ secrets.TELEGRAM_TOKEN }}
-          to: -68****** CHAT_ID_TELEGRAM
-          token: 51526****8:AA**** TELEGRAM_TOKEN
-          document: android/app/build/outputs/apk/release/app-release.apk
-          message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
-            
-            Repository: ${{ github.repository }}
-            
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+#      - name: send telegram message on push
+#        uses: appleboy/telegram-action@master
+#        with:
+##          to: ${{ secrets.TELEGRAM_TO }}
+##          token: ${{ secrets.TELEGRAM_TOKEN }}
+#          to: -68****** CHAT_ID_TELEGRAM
+#          token: 51526****8:AA**** TELEGRAM_TOKEN
+#          document: android/app/build/outputs/apk/release/app-release.apk
+#          message: |
+#            ${{ github.actor }} created commit:
+#            Commit message: ${{ github.event.commits[0].message }}
+#
+#            Repository: ${{ github.repository }}
+#
+#            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
