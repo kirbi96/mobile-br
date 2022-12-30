@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {AgEnum, Text} from '../../../components/ui/Text';
-import {containerStyle} from '../../../styles/containerStyle';
-import {Colors} from '../../../styles/Colors';
-import navigation from '../../../base/Navigation';
-import {Screens} from '../../../navigation/Screens';
+import {AgEnum, Text} from '../../../../components/ui/Text';
+import {containerStyle} from '../../../../styles/containerStyle';
+import {Colors} from '../../../../styles/Colors';
+import navigation from '../../../../base/Navigation';
+import {Screens} from '../../../../navigation/Screens';
 
 export enum EAdsType {
   SELL = 'SELL',

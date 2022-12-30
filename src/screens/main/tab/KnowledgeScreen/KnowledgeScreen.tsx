@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {AgEnum, Text} from '../../../components/ui/Text';
+import {AgEnum, Text} from '../../../../components/ui/Text';
 
 export const KnowledgeScreen = () => {
   return (

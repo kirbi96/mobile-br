@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import YaMap from 'react-native-yamap';
-import {appConfig} from '../../../appConfig';
-import {BottomSheet} from '../../../components/ui/BottomSheet';
+import {appConfig} from '../../../../appConfig';
+import {BottomSheet} from '../../../../components/ui/BottomSheet';
 
 export const HomeScreen = () => {
   YaMap.init(appConfig.yandexKey);
