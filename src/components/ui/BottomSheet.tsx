@@ -19,7 +19,12 @@ export const BottomSheet = () => {
     <View style={styles.container}>
       <ScrollBottomSheet<string>
         componentType="FlatList"
-        snapPoints={[56, '50%', DimensionHelper.height - 120]}
+        // snapPoints={[56, '50%', DimensionHelper.height - 120]}
+        snapPoints={[
+          56,
+          DimensionHelper.height - 130,
+          DimensionHelper.height - 120,
+        ]}
         initialSnapIndex={1}
         renderHandle={() => (
           <View style={styles.header}>

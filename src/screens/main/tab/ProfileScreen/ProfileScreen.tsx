@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -97,7 +96,23 @@ export const ProfileScreen = () => {
           </ScrollView>
         </View>
 
-        <ProfileCard title={'Title'} description={'Description'} onPress={() => {}} />
+        <ProfileCard
+          title={'Профиль'}
+          description={'Изменить настройки профиля'}
+          onPress={() => {}}
+        />
+
+        <ProfileCard
+          title={'Настройки'}
+          description={'Изменить функционал приложения'}
+          onPress={() => {}}
+        />
+
+        <ProfileCard
+          title={'Помощь'}
+          description={'Часто задаваемые вопросы'}
+          onPress={() => {}}
+        />
       </View>
     </ScrollView>
   );
