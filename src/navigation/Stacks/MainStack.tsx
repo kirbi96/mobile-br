@@ -7,7 +7,7 @@ import {InApplicationScreen} from '../../screens/main/InApplicationScreen/InAppl
 
 const Stack = createStackNavigator();
 
-export const StackTab = (
+export const MainStack = (
   <>
     <Stack.Screen name={Screens.APP} component={BottomTab} />
     <Stack.Screen

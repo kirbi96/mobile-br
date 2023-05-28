@@ -1,12 +1,18 @@
 export enum Screens {
   APP = 'APP',
 
+  // Bottom Tab
   HOME = 'HOME',
   FAVORITE = 'FAVORITE',
   ADD = 'ADD',
   KNOWLEDGE = 'KNOWLEDGE',
   PROFILE = 'PROFILE',
 
+  // Main
   ADD_APPLICATION = 'ADD_APPLICATION',
   IN_APPLICATION = 'IN_APPLICATION',
+
+  //Auth
+  AUTH = 'AUTH',
+  REGISTRATION = 'REGISTRATION',
 }
