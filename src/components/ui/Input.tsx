@@ -17,7 +17,7 @@ interface IInput {
   icon?: ReactNode;
   keyboardType?: any;
   inputKey: string;
-  error: string | undefined;
+  error: any;
   disabled?: boolean;
   multiline?: boolean;
   maxLength?: number;

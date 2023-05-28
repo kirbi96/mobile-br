@@ -7,6 +7,10 @@ import {Button} from '../../components/ui/Button';
 import {Colors} from '../../styles/Colors';
 import Navigation from '../../base/Navigation';
 import {useForm} from 'react-hook-form';
+import {FormValidation} from '../../validation/FormValidation';
+import {observer} from 'mobx-react';
+import {useRootStore} from '../../base/hooks/useRootStore';
+import {IRegistrationRequest} from '../../modules/auth/AuthTypes';
 
 enum ERegForm {
   EMAIL = 'email',
@@ -14,27 +18,29 @@ enum ERegForm {
   CONFIRM_PASSWORD = 'confirmPassword',
 }
 
-export const RegScreen = () => {
+export const RegScreen = observer(() => {
+  const {authStore} = useRootStore();
+
   const {
     register,
     setValue,
     watch,
     handleSubmit,
     formState: {errors},
-  } = useForm();
+  } = useForm<IRegistrationRequest>({});
 
   const handleChange = (text: string, inputKey: any) => {
     setValue(inputKey, text, {shouldValidate: true});
   };
 
-  const sendData = (data: any) => {
-    console.log(123, data);
+  const sendData = (data: IRegistrationRequest) => {
+    authStore.registration(data);
   };
 
   useEffect(() => {
-    register(ERegForm.EMAIL);
-    register(ERegForm.PASSWORD);
-    register(ERegForm.CONFIRM_PASSWORD);
+    register(ERegForm.EMAIL, FormValidation.email);
+    register(ERegForm.PASSWORD, FormValidation.password());
+    register(ERegForm.CONFIRM_PASSWORD, FormValidation.passwordConfirm(watch));
   }, []);
 
   return (
@@ -49,21 +55,21 @@ export const RegScreen = () => {
           value={watch(ERegForm.EMAIL)}
           onChangeText={handleChange}
           inputKey={ERegForm.EMAIL}
-          error={''}
+          error={errors[ERegForm.EMAIL]?.message || ''}
         />
         <Input
           label={'Пароль'}
           value={watch(ERegForm.PASSWORD)}
           onChangeText={handleChange}
           inputKey={ERegForm.PASSWORD}
-          error={''}
+          error={errors[ERegForm.PASSWORD]?.message || ''}
         />
         <Input
           label={'Повторите пароль'}
           value={watch(ERegForm.CONFIRM_PASSWORD)}
           onChangeText={handleChange}
           inputKey={ERegForm.CONFIRM_PASSWORD}
-          error={''}
+          error={errors[ERegForm.CONFIRM_PASSWORD]?.message || ''}
         />
 
         <Button onPress={handleSubmit(sendData)} title={'Регистрация'} />
@@ -78,7 +84,7 @@ export const RegScreen = () => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

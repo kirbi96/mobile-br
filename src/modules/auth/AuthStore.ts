@@ -1,5 +1,6 @@
 import {makeAutoObservable, runInAction} from 'mobx';
 import AuthService from './AuthService';
+import {IAuthRequest, IRegistrationRequest} from './AuthTypes';
 
 export class AuthStore {
   loader: boolean = false;
@@ -32,16 +33,35 @@ export class AuthStore {
     }
   };
 
-  auth = async () => {
+  auth = async (data: IAuthRequest) => {
     this.setLoading(true);
 
     try {
-      // const res = await this.authService.isAuth();
+      const res = await this.authService.auth(data);
 
-      runInAction(() => {
-        this.token = 'EXAMPLE TOKEN';
-        // this.files = res;
-      });
+      if (res.token) {
+        runInAction(() => {
+          this.token = res.token;
+        });
+      }
+    } catch (e) {
+      console.log('Error', e);
+    } finally {
+      this.setLoading(false);
+    }
+  };
+
+  registration = async (data: IRegistrationRequest) => {
+    this.setLoading(true);
+
+    try {
+      const res = await this.authService.registration(data);
+
+      if (res.token) {
+        runInAction(() => {
+          this.token = res.token;
+        });
+      }
     } catch (e) {
       console.log('Error', e);
     } finally {
