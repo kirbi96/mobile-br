@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {containerStyle} from '../../styles/containerStyle';
 import {AgEnum, Text} from '../../components/ui/Text';
@@ -7,8 +7,41 @@ import {Button} from '../../components/ui/Button';
 import {Colors} from '../../styles/Colors';
 import Navigation from '../../base/Navigation';
 import {Screens} from '../../navigation/Screens';
+import {observer} from 'mobx-react';
+import {useRootStore} from '../../base/hooks/useRootStore';
+import {useForm} from 'react-hook-form';
+import {IAuthRequest} from '../../modules/auth/AuthTypes';
+import {FormValidation} from '../../validation/FormValidation';
 
-export const AuthScreen = () => {
+enum EAuthForm {
+  EMAIL = 'email',
+  PASSWORD = 'password',
+}
+
+export const AuthScreen = observer(() => {
+  const {authStore} = useRootStore();
+
+  const {
+    register,
+    setValue,
+    watch,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<IAuthRequest>({});
+
+  const handleChange = (text: string, inputKey: any) => {
+    setValue(inputKey, text, {shouldValidate: true});
+  };
+
+  const sendData = (data: IAuthRequest) => {
+    authStore.login(data);
+  };
+
+  useEffect(() => {
+    register(EAuthForm.EMAIL, FormValidation.email);
+    register(EAuthForm.PASSWORD, FormValidation.password());
+  }, []);
+
   return (
     <View style={containerStyle}>
       <View style={styles.container}>
@@ -16,10 +49,22 @@ export const AuthScreen = () => {
           Авторизация
         </Text>
 
-        <Input label={'Почта'} inputKey={'mail'} error={''} />
-        <Input label={'Пароль'} inputKey={'mail'} error={''} />
+        <Input
+          label={'Почта'}
+          value={watch(EAuthForm.EMAIL)}
+          onChangeText={handleChange}
+          inputKey={EAuthForm.EMAIL}
+          error={errors[EAuthForm.EMAIL]?.message || ''}
+        />
+        <Input
+          label={'Пароль'}
+          value={watch(EAuthForm.PASSWORD)}
+          onChangeText={handleChange}
+          inputKey={EAuthForm.PASSWORD}
+          error={errors[EAuthForm.PASSWORD]?.message || ''}
+        />
 
-        <Button title={'Войти'} />
+        <Button onPress={handleSubmit(sendData)} title={'Войти'} />
 
         <TouchableOpacity
           onPress={() => Navigation.navigate(Screens.REGISTRATION)}
@@ -31,7 +76,7 @@ export const AuthScreen = () => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

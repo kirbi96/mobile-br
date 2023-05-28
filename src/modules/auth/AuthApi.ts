@@ -6,11 +6,18 @@ export default class AuthApi {
     return api.get('/example/ex');
   };
 
-  auth = (data: IAuthRequest) => {
-    return api.post('/example/ex', data);
+  login = (data: IAuthRequest) => {
+    // return api.post('/example/ex', data);
+    return {data: {token: 'TOKEN'}};
   };
 
   registration = (data: IRegistrationRequest) => {
-    return api.post('/example/ex', data);
+    // return api.post('/example/ex', data);
+    return {data: {token: 'TOKEN'}};
+  };
+
+  logout = () => {
+    // return Api.post('/logout', data);
+    return {data: {isSuccess: true}};
   };
 }

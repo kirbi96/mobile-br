@@ -8,8 +8,14 @@ export const Loader = (props: ActivityIndicatorProps) => {
 
 export const LoaderFlex = (props: ActivityIndicatorProps) => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <ActivityIndicator size={'large'} color={Colors.leaf} {...props} />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.gray800,
+      }}>
+      <ActivityIndicator size={'large'} color={Colors.danger} {...props} />
     </View>
   );
 };

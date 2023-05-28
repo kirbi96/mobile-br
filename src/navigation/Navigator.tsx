@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -9,6 +9,7 @@ import {StatusBar} from 'react-native';
 import {AuthStack} from './Stacks/AuthStack';
 import {observer} from 'mobx-react';
 import {useRootStore} from '../base/hooks/useRootStore';
+import {LoaderFlex} from '../components/ui/Loader';
 
 export type RootStackParamList = {
   // SCREEN_NAME: {param: IParam};
@@ -26,6 +27,14 @@ const AppTheme = {
 
 const Navigator = observer(() => {
   const {authStore} = useRootStore();
+
+  useEffect(() => {
+    authStore.isAuth();
+  }, []);
+
+  if (authStore.loader) {
+    return <LoaderFlex />;
+  }
 
   return (
     <NavigationContainer theme={AppTheme} ref={Navigation.navigationRef}>

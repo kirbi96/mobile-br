@@ -9,6 +9,10 @@ export interface IRegistrationRequest {
   confirmPassword: string;
 }
 
+export interface ILogoutResponse {
+  isSuccess: boolean;
+}
+
 export interface IAuthResponse {
   token: string;
 }

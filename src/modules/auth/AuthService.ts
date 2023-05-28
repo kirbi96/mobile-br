@@ -1,5 +1,10 @@
 import AuthApi from './AuthApi';
-import {IAuthRequest, IAuthResponse, IRegistrationRequest} from './AuthTypes';
+import {
+  IAuthRequest,
+  IAuthResponse,
+  ILogoutResponse,
+  IRegistrationRequest,
+} from './AuthTypes';
 
 export default class AuthService {
   authApi: AuthApi;
@@ -8,13 +13,13 @@ export default class AuthService {
     this.authApi = new AuthApi();
   }
 
-  isAuth = async (): Promise<any> => {
-    const {data} = await this.authApi.isAuth();
+  login = async (authData: IAuthRequest): Promise<IAuthResponse> => {
+    const {data} = await this.authApi.login(authData);
     return data;
   };
 
-  auth = async (authData: IAuthRequest): Promise<IAuthResponse> => {
-    const {data} = await this.authApi.auth(authData);
+  logout = async (): Promise<ILogoutResponse> => {
+    const {data} = await this.authApi.logout();
     return data;
   };
 

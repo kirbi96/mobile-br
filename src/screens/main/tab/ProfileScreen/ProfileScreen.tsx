@@ -16,6 +16,8 @@ import navigation from '../../../../base/Navigation';
 import {Screens} from '../../../../navigation/Screens';
 import {DimensionHelper} from '../../../../helpers/DimensionHelper';
 import {ProfileCard} from './components/ProfileCard';
+import {observer} from 'mobx-react';
+import {useRootStore} from '../../../../base/hooks/useRootStore';
 
 const rating = 5;
 
@@ -25,7 +27,9 @@ const exImage =
 const avatar =
   'https://trikky.ru/wp-content/blogs.dir/1/files/2020/08/17/2859972401.jpg';
 
-export const ProfileScreen = () => {
+export const ProfileScreen = observer(() => {
+  const {authStore} = useRootStore();
+
   const navigateToApplication = () => {
     navigation.navigate(Screens.IN_APPLICATION);
   };
@@ -35,7 +39,9 @@ export const ProfileScreen = () => {
       <View style={containerStyle}>
         <View style={styles.topContainer}>
           <Text Ag={AgEnum.H1}>Профиль</Text>
-          <TouchableOpacity style={styles.iconExit}>
+          <TouchableOpacity
+            onPress={() => authStore.logout()}
+            style={styles.iconExit}>
             <IconSvgExit />
           </TouchableOpacity>
         </View>
@@ -116,7 +122,7 @@ export const ProfileScreen = () => {
       </View>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   topContainer: {
