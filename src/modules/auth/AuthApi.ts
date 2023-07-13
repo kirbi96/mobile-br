@@ -2,18 +2,12 @@ import {api} from '../../base/axios';
 import {IAuthRequest, IRegistrationRequest} from './AuthTypes';
 
 export default class AuthApi {
-  isAuth = () => {
-    return api.get('/example/ex');
-  };
-
   login = (data: IAuthRequest) => {
-    // return api.post('/example/ex', data);
-    return {data: {token: 'TOKEN'}};
+    return api.post('/auth/login', data);
   };
 
   registration = (data: IRegistrationRequest) => {
-    // return api.post('/example/ex', data);
-    return {data: {token: 'TOKEN'}};
+    return api.post('/user', data);
   };
 
   logout = () => {

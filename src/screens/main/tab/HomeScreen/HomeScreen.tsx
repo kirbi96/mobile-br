@@ -8,14 +8,18 @@ import Geolocation, {
 } from '@react-native-community/geolocation';
 import navigation from '../../../../base/Navigation';
 import {Screens} from '../../../../navigation/Screens';
+import {observer} from 'mobx-react';
+import {useRootStore} from '../../../../base/hooks/useRootStore';
+
+YaMap.init(appConfig.yandexKey);
 
 const markersArr = [
   {lat: 55.8020027, lon: 49.067523},
   {lat: 55.8020027, lon: 49.067522},
 ];
 
-export const HomeScreen = () => {
-  YaMap.init(appConfig.yandexKey);
+export const HomeScreen = observer(() => {
+  const {applicationStore} = useRootStore();
 
   const [myGeo, setMyGeo] = useState<GeolocationResponse | null>(null);
 
@@ -25,6 +29,10 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     Geolocation.getCurrentPosition(info => setMyGeo(info));
+  }, []);
+
+  useEffect(() => {
+    applicationStore.getAllApplications();
   }, []);
 
   return (
@@ -55,4 +63,4 @@ export const HomeScreen = () => {
       <BottomSheet />
     </View>
   );
-};
+});

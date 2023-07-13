@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx';
 import AuthService from './AuthService';
 import {IAuthRequest, IRegistrationRequest} from './AuthTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setAccessToken} from '../../base/ApiAdapter';
 
 export class AuthStore {
   loader: boolean = false;
@@ -21,6 +22,7 @@ export class AuthStore {
     try {
       const storageToken = await AsyncStorage.getItem('@token');
       if (storageToken !== null) {
+        setAccessToken(storageToken);
         runInAction(() => {
           this.token = storageToken;
         });
@@ -38,12 +40,13 @@ export class AuthStore {
     try {
       const res = await this.authService.login(data);
 
-      if (res.token) {
+      if (res.access_token) {
         runInAction(() => {
-          this.token = res.token;
+          this.token = res.access_token;
         });
 
-        await AsyncStorage.setItem('@token', res.token);
+        await AsyncStorage.setItem('@token', res.access_token);
+        setAccessToken(res.access_token);
       }
     } catch (e) {
       console.log('Error', e);
@@ -58,9 +61,9 @@ export class AuthStore {
     try {
       const res = await this.authService.registration(data);
 
-      if (res.token) {
+      if (res.access_token) {
         runInAction(() => {
-          this.token = res.token;
+          this.token = res.access_token;
         });
       }
     } catch (e) {

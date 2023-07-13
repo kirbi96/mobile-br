@@ -14,5 +14,5 @@ export interface ILogoutResponse {
 }
 
 export interface IAuthResponse {
-  token: string;
+  access_token: string;
 }

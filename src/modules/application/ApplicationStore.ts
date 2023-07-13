@@ -31,6 +31,24 @@ export class ApplicationStore {
     }
   };
 
+  getAllApplications = async () => {
+    this.setLoading(true);
+
+    try {
+      const res = await this.applicationService.getAllApplications();
+
+      console.log(123123, res);
+
+      runInAction(() => {
+        // this.files = res;
+      });
+    } catch (e) {
+      console.log('Error', e);
+    } finally {
+      this.setLoading(false);
+    }
+  };
+
   setCreateApplicationPhotos = (
     serverFilesRes: any,
     localFilesRes: Asset[],
