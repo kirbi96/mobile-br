@@ -18,14 +18,13 @@ export const FavoriteScreen = () => {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={containerStyle}>
         <Text Ag={AgEnum.H1}>Избранное</Text>
-        {Array.from({length: 20}).map((_, i) => (
-          <ApplicationCard
-            key={i}
-            pressCard={navigateToApplication}
-            item={i}
-            image={exImage}
-          />
-        ))}
+        {/*{Array.from({length: 20}).map((_, i) => (*/}
+        {/*  <ApplicationCard*/}
+        {/*    key={i}*/}
+        {/*    pressCard={navigateToApplication}*/}
+        {/*    item={i}*/}
+        {/*  />*/}
+        {/*))}*/}
       </View>
     </ScrollView>
   );

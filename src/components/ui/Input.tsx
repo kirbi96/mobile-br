@@ -71,6 +71,7 @@ const Input = ({
         <TextInput
           ref={input}
           placeholder={placeholder}
+          placeholderTextColor={Colors.gray300}
           autoCapitalize="none"
           keyboardType={keyboardType ?? 'default'}
           value={value}

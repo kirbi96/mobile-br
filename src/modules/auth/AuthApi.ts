@@ -1,13 +1,13 @@
-import {api} from '../../base/axios';
 import {IAuthRequest, IRegistrationRequest} from './AuthTypes';
+import AbstractApiRepository from '../../base/repositories/AbstractApiRepository';
 
-export default class AuthApi {
+export default class AuthApi extends AbstractApiRepository {
   login = (data: IAuthRequest) => {
-    return api.post('/auth/login', data);
+    return this.post({url: '/auth/login', data});
   };
 
   registration = (data: IRegistrationRequest) => {
-    return api.post('/user', data);
+    return this.post({url: '/user', data});
   };
 
   logout = () => {

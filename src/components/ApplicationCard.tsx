@@ -2,21 +2,25 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AgEnum, Text} from './ui/Text';
 import {Colors} from '../styles/Colors';
+import {appConfig} from '../appConfig';
+import {IApplication} from '../modules/application/ApplicationTypes';
 
 interface IApplicationCard {
   pressCard: () => void;
-  item: any;
-  image: string;
+  item: IApplication;
 }
 
-export const ApplicationCard = ({pressCard, item, image}: IApplicationCard) => {
+export const ApplicationCard = ({pressCard, item}: IApplicationCard) => {
   return (
     <TouchableOpacity onPress={pressCard} style={styles.item}>
-      <Image source={{uri: image}} style={styles.image} />
+      <Image
+        source={{uri: `${appConfig.HOST}/${item.files[0].url}`}}
+        style={styles.image}
+      />
       <View style={styles.textContainer}>
-        <Text Ag={AgEnum.Body}>Квартира {+item + 1}</Text>
+        <Text Ag={AgEnum.Body}>Квартира {item.price} Р</Text>
         <Text Ag={AgEnum.Description}>
-          Краткое описание для квартиры {+item + 1}
+          Комнат {item.rooms}, площадь {item.area}
         </Text>
       </View>
     </TouchableOpacity>

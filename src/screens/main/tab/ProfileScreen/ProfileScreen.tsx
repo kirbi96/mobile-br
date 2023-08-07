@@ -92,11 +92,10 @@ export const ProfileScreen = observer(() => {
                   width: DimensionHelper.width * 0.8,
                 }}
                 key={i}>
-                <ApplicationCard
-                  pressCard={navigateToApplication}
-                  item={i}
-                  image={exImage}
-                />
+                {/*<ApplicationCard*/}
+                {/*  pressCard={navigateToApplication}*/}
+                {/*  item={i}*/}
+                {/*/>*/}
               </View>
             ))}
           </ScrollView>

@@ -4,6 +4,7 @@ import {Screens} from '../Screens';
 import {BottomTab} from '../BottomTab/BottomTab';
 import {AddApplicationScreen} from '../../screens/main/AddApplicationScreen/AddApplicationScreen';
 import {InApplicationScreen} from '../../screens/main/InApplicationScreen/InApplicationScreen';
+import {AddressScreen} from '../../screens/main/AddressScreen/AddressScreen';
 
 const Stack = createStackNavigator();
 
@@ -18,5 +19,6 @@ export const MainStack = (
       name={Screens.IN_APPLICATION}
       component={InApplicationScreen}
     />
+    <Stack.Screen name={Screens.ADDRESS} component={AddressScreen} />
   </>
 );

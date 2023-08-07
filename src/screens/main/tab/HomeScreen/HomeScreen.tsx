@@ -39,22 +39,22 @@ export const HomeScreen = observer(() => {
     <View style={{flex: 1, flexDirection: 'column'}}>
       <YaMap
         nightMode={true}
-        userLocationIcon={{
-          uri: 'https://img.icons8.com/color/2x/map-pin.png',
-        }}
+        // userLocationIcon={{
+        //   uri: 'https://img.icons8.com/color/2x/map-pin.png',
+        // }}
         initialRegion={{
           lat: myGeo?.coords?.latitude || 50,
           lon: myGeo?.coords?.longitude || 50,
         }}
         style={{flex: 1}}>
-        {markersArr.map(i => (
+        {applicationStore.allApplications.map((application) => (
           <Marker
             onPress={navigateToApplication}
-            key={i.lon}
+            key={application.id}
             scale={2}
             point={{
-              lat: i.lat,
-              lon: i.lon,
+              lat: +application.address.geo_lat,
+              lon: +application.address.geo_lon,
             }}
           />
         ))}

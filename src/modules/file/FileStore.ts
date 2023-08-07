@@ -1,6 +1,9 @@
 import FileService from './FileService';
 import {makeAutoObservable, runInAction} from 'mobx';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {EFileType} from './FileTypes';
+import {PermissionsAndroid} from 'react-native';
+import FormDataFactory from '../../base/formData/FormDataFactory';
 
 export class FileStore {
   loader: boolean = false;
@@ -14,32 +17,38 @@ export class FileStore {
     this.fileService = new FileService();
   }
 
-  sendFile = async () => {
+  sendFile = async (type: EFileType) => {
     this.setLoading(true);
 
     try {
-      const res = await launchImageLibrary(
-        {mediaType: 'photo'},
-        pickerRes => pickerRes,
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'App Camera Permission',
+          message: 'App needs access to your camera ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
       );
 
-      if (res.assets) {
-        const formData = new FormData();
+      if (granted) {
+        const res = await launchCamera(
+          {mediaType: 'photo'},
+          pickerRes => pickerRes,
+        );
 
-        const sendFileData = res.assets.map(item => ({
-          type: item.type,
-          name: item.fileName,
-          uri: item.uri,
-        }));
+        if (res.assets) {
+          const formData = FormDataFactory.create(res.assets[0], 'files');
 
-        formData.append('file', sendFileData);
+          const serverFilesRes = await this.fileService.sendFile(formData);
+          const localFilesRes = res.assets;
 
-        const serverFilesRes = await this.fileService.sendFile(formData);
-        const localFilesRes = res.assets;
-
-        return {serverFilesRes, localFilesRes};
+          return {serverFilesRes, localFilesRes};
+        }
       }
     } catch (e) {
+      // console.log('Error', e.response);
       console.log('Error', e);
     } finally {
       this.setLoading(false);

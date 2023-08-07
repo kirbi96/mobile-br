@@ -11,6 +11,7 @@ export enum Screens {
   // Main
   ADD_APPLICATION = 'ADD_APPLICATION',
   IN_APPLICATION = 'IN_APPLICATION',
+  ADDRESS = 'ADDRESS',
 
   //Auth
   AUTH = 'AUTH',
