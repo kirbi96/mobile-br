@@ -12,8 +12,8 @@ import {useRootStore} from '../../base/hooks/useRootStore';
 export const BottomSheet = observer(() => {
   const {applicationStore} = useRootStore();
 
-  const navigateToApplication = () => {
-    navigation.navigate(Screens.IN_APPLICATION);
+  const navigateToApplication = (id: number) => {
+    navigation.navigate(Screens.IN_APPLICATION, {applicationId: id});
   };
 
   return (
@@ -36,8 +36,8 @@ export const BottomSheet = observer(() => {
         keyExtractor={i => i.id.toString()}
         renderItem={({item}: any) => (
           <ApplicationCard
-            key={item}
-            pressCard={navigateToApplication}
+            key={item.id}
+            pressCard={() => navigateToApplication(item.id)}
             item={item}
           />
         )}
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    zIndex: 2000,
   },
   contentContainerStyle: {
     padding: 16,

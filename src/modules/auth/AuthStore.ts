@@ -58,8 +58,12 @@ export class AuthStore {
   registration = async (data: IRegistrationRequest) => {
     this.setLoading(true);
 
+    const formattedPhone = data.phone.replace(/[()+-\s]/g, '');
+
+    const formattedData = {...data, phone: formattedPhone};
+
     try {
-      const res = await this.authService.registration(data);
+      const res = await this.authService.registration(formattedData);
 
       if (res.access_token) {
         runInAction(() => {

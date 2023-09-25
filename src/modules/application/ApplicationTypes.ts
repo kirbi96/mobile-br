@@ -20,3 +20,13 @@ export interface IApplication {
   price: string;
   pledge: string;
 }
+
+export interface IComfort {
+  balcony: boolean;
+  conditioner: boolean;
+  fridge: boolean;
+  stove: boolean;
+  microwave: boolean;
+  washing: boolean;
+  wifi: boolean;
+}

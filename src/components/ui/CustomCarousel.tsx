@@ -6,7 +6,7 @@ import {DimensionHelper} from '../../helpers/DimensionHelper';
 import {AgEnum, Text} from './Text';
 
 interface ICustomCarousel {
-  carouselData: {id: number; image: string}[];
+  carouselData: {id: number | string; image: string}[];
 }
 
 export const CustomCarousel = ({carouselData}: ICustomCarousel) => {

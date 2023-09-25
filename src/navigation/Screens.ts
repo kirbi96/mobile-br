@@ -13,6 +13,10 @@ export enum Screens {
   IN_APPLICATION = 'IN_APPLICATION',
   ADDRESS = 'ADDRESS',
 
+  // Profile
+  FAQ = 'FAQ',
+  APP_SETTINGS = 'APP_SETTINGS',
+
   //Auth
   AUTH = 'AUTH',
   REGISTRATION = 'REGISTRATION',

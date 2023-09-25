@@ -21,32 +21,32 @@ export class FileStore {
     this.setLoading(true);
 
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'App Camera Permission',
-          message: 'App needs access to your camera ',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
+      // const granted = await PermissionsAndroid.request(
+      //   PermissionsAndroid.PERMISSIONS.CAMERA,
+      //   {
+      //     title: 'App Camera Permission',
+      //     message: 'App needs access to your camera ',
+      //     buttonNeutral: 'Ask Me Later',
+      //     buttonNegative: 'Cancel',
+      //     buttonPositive: 'OK',
+      //   },
+      // );
+
+      // if (granted) {
+      const res = await launchImageLibrary(
+        {mediaType: 'photo'},
+        pickerRes => pickerRes,
       );
 
-      if (granted) {
-        const res = await launchCamera(
-          {mediaType: 'photo'},
-          pickerRes => pickerRes,
-        );
+      if (res.assets) {
+        const formData = FormDataFactory.create(res.assets[0], 'files');
 
-        if (res.assets) {
-          const formData = FormDataFactory.create(res.assets[0], 'files');
+        const serverFilesRes = await this.fileService.sendFile(formData);
+        const localFilesRes = res.assets;
 
-          const serverFilesRes = await this.fileService.sendFile(formData);
-          const localFilesRes = res.assets;
-
-          return {serverFilesRes, localFilesRes};
-        }
+        return {serverFilesRes, localFilesRes};
       }
+      // }
     } catch (e) {
       // console.log('Error', e.response);
       console.log('Error', e);

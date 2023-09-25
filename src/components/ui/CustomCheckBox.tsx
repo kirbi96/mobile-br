@@ -24,13 +24,19 @@ export const CustomCheckBox = ({
   return (
     <View style={[styles.container, {marginTop: top}]}>
       <CheckBox
-        tintColors={{true: Colors.blue, false: Colors.white}}
+        tintColors={{
+          true: disabled ? Colors.gray300 : Colors.blue,
+          false: disabled ? Colors.gray300 : Colors.white,
+        }}
         disabled={disabled}
         value={value === 'true'}
         onValueChange={v => handleChange(String(v), inputKey)}
       />
       {text && (
-        <Text style={styles.text} Ag={AgEnum.Body}>
+        <Text
+          color={disabled ? Colors.gray300 : Colors.white}
+          style={styles.text}
+          Ag={AgEnum.Body}>
           {text}
         </Text>
       )}

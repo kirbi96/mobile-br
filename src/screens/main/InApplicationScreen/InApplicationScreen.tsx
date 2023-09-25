@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {containerStyle} from '../../../styles/containerStyle';
 import {AgEnum, Text} from '../../../components/ui/Text';
@@ -6,6 +6,11 @@ import {Header} from '../../../components/ui/Header';
 import {CustomCarousel} from '../../../components/ui/CustomCarousel';
 import {Colors} from '../../../styles/Colors';
 import {Button} from '../../../components/ui/Button';
+import {observer} from 'mobx-react';
+import {useRootStore} from '../../../base/hooks/useRootStore';
+import {LoaderFlex} from '../../../components/ui/Loader';
+import {getImageUrl} from '../../../helpers/ImageHelper';
+import {ApplicationHelper} from '../../../helpers/ApplicationHelper';
 
 const images = [
   {
@@ -40,22 +45,33 @@ const images = [
   },
 ];
 
-const tags = [
-  'Балкон',
-  'Кондиционер',
-  'Холодильник',
-  'Плита',
-  'Микроволновка',
-  'Стиральная машина',
-  'Wi-Fi',
-];
+export const InApplicationScreen = observer(({route}: any) => {
+  const {applicationStore} = useRootStore();
 
-export const InApplicationScreen = () => {
+  const {applicationId} = route.params;
+
+  useEffect(() => {
+    applicationStore.getApplication(applicationId);
+  }, [applicationId]);
+
+  console.log(123123, applicationStore.application);
+
+  if (applicationStore.loader) {
+    return <LoaderFlex />;
+  }
+
   return (
     <ScrollView>
       <Header />
 
-      <CustomCarousel carouselData={images} />
+      <CustomCarousel
+        carouselData={
+          applicationStore.application?.files?.map(f => ({
+            id: f.uuid,
+            image: getImageUrl(f.url),
+          })) || []
+        }
+      />
 
       <View style={[containerStyle, {marginTop: 16}]}>
         <Text Ag={AgEnum.H1}>Сдается</Text>
@@ -63,37 +79,50 @@ export const InApplicationScreen = () => {
           Адресс:
         </Text>
         <Text Ag={AgEnum.Body}>
-          г. Казань, улица Боевая, дом 21, квартира 69
+          {applicationStore.application?.address.result}
         </Text>
 
         <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
           Данные:
         </Text>
-        <Text Ag={AgEnum.Body}>Комнат 3, Общая площадь 68 м², Этаж 5 из 9</Text>
+        <Text Ag={AgEnum.Body}>
+          Комнат {applicationStore.application?.rooms}, Общая площадь{' '}
+          {applicationStore.application?.area} м², Этаж{' '}
+          {applicationStore.application?.floor} из{' '}
+          {applicationStore.application?.floor_home}
+        </Text>
 
         <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
           Удобства:
         </Text>
 
-        <View style={styles.tagsContainer}>
-          {tags.map(tag => (
-            <View style={styles.tagItem}>
-              <Text Ag={AgEnum.Body}>{tag}</Text>
-            </View>
-          ))}
-        </View>
+        {applicationStore.application && (
+          <View style={styles.tagsContainer}>
+            {ApplicationHelper.getApartmentComfort(
+              applicationStore.application,
+            )?.map(tag => (
+              <View key={tag} style={styles.tagItem}>
+                <Text Ag={AgEnum.Body}>{tag}</Text>
+              </View>
+            ))}
+          </View>
+        )}
 
         <Text style={{marginTop: 16}} Ag={AgEnum.H2}>
           Стоимость:
         </Text>
-        <Text Ag={AgEnum.Body}>Цена: 22000 ₽</Text>
-        <Text Ag={AgEnum.Body}>Залог: 2000 ₽</Text>
+        <Text Ag={AgEnum.Body}>
+          Цена: {applicationStore.application?.price} ₽
+        </Text>
+        <Text Ag={AgEnum.Body}>
+          Залог: {applicationStore.application?.pledge} ₽
+        </Text>
 
         <Button title={'Связаться'} />
       </View>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   tagsContainer: {

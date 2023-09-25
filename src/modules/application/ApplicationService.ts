@@ -16,4 +16,14 @@ export default class ApplicationService {
     const {data} = await this.applicationApi.getAllApplications();
     return data;
   };
+
+  getMyApplications = async (): Promise<any> => {
+    const {data} = await this.applicationApi.getMyApplications();
+    return data;
+  };
+
+  getApplication = async (applicationId: number): Promise<any> => {
+    const {data} = await this.applicationApi.getApplication(applicationId);
+    return data;
+  };
 }

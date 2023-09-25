@@ -8,4 +8,12 @@ export default class ApplicationApi extends AbstractApiRepository {
   getAllApplications = () => {
     return this.get({url: '/application'});
   };
+
+  getMyApplications = () => {
+    return this.get({url: '/application/my'});
+  };
+
+  getApplication = (id: number) => {
+    return this.get({url: `/application/${id}`});
+  };
 }

@@ -2,8 +2,8 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AgEnum, Text} from './ui/Text';
 import {Colors} from '../styles/Colors';
-import {appConfig} from '../appConfig';
 import {IApplication} from '../modules/application/ApplicationTypes';
+import {getImageUrl} from '../helpers/ImageHelper';
 
 interface IApplicationCard {
   pressCard: () => void;
@@ -14,7 +14,7 @@ export const ApplicationCard = ({pressCard, item}: IApplicationCard) => {
   return (
     <TouchableOpacity onPress={pressCard} style={styles.item}>
       <Image
-        source={{uri: `${appConfig.HOST}/${item.files[0].url}`}}
+        source={{uri: getImageUrl(item.files[0].url)}}
         style={styles.image}
       />
       <View style={styles.textContainer}>

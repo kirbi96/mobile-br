@@ -26,7 +26,7 @@ export const AddScreen = () => {
           onPress={() => navigateToAddInScreen(EAdsType.SELL)}
           style={styles.addItemContainer}>
           <Text style={styles.addItemText} Ag={AgEnum.Body}>
-            Продам квартиру
+            Продам квартиру/дом
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

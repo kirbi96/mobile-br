@@ -11,9 +11,12 @@ import {FormValidation} from '../../validation/FormValidation';
 import {observer} from 'mobx-react';
 import {useRootStore} from '../../base/hooks/useRootStore';
 import {IRegistrationRequest} from '../../modules/auth/AuthTypes';
+import {maskPhoneFormat} from '../../validation/CustomMask';
 
 enum ERegForm {
   EMAIL = 'email',
+  NAME = 'name',
+  PHONE = 'phone',
   PASSWORD = 'password',
   CONFIRM_PASSWORD = 'confirmPassword',
 }
@@ -39,6 +42,8 @@ export const RegScreen = observer(() => {
 
   useEffect(() => {
     register(ERegForm.EMAIL, FormValidation.email);
+    register(ERegForm.NAME, FormValidation.required);
+    register(ERegForm.PHONE, FormValidation.phone());
     register(ERegForm.PASSWORD, FormValidation.password());
     register(ERegForm.CONFIRM_PASSWORD, FormValidation.passwordConfirm(watch));
   }, []);
@@ -49,6 +54,25 @@ export const RegScreen = observer(() => {
         <Text align={'center'} Ag={AgEnum.H1}>
           Регистрация
         </Text>
+
+        <Input
+          label={'Имя'}
+          value={watch(ERegForm.NAME)}
+          onChangeText={handleChange}
+          inputKey={ERegForm.NAME}
+          error={errors[ERegForm.NAME]?.message || ''}
+        />
+
+        <Input
+          placeholder={'+7'}
+          mask={maskPhoneFormat}
+          label={'Телефон'}
+          keyboardType={'numeric'}
+          value={watch(ERegForm.PHONE)}
+          onChangeText={handleChange}
+          inputKey={ERegForm.PHONE}
+          error={errors[ERegForm.PHONE]?.message || ''}
+        />
 
         <Input
           label={'Почта'}

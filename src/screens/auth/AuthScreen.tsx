@@ -58,6 +58,7 @@ export const AuthScreen = observer(() => {
         />
         <Input
           label={'Пароль'}
+          secureTextEntry={true}
           value={watch(EAuthForm.PASSWORD)}
           onChangeText={handleChange}
           inputKey={EAuthForm.PASSWORD}

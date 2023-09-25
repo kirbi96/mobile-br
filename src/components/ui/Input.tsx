@@ -2,6 +2,8 @@ import React, {ReactNode, useRef} from 'react';
 import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {Colors} from '../../styles/Colors';
 import {AgEnum, Text} from './Text';
+import MaskInput from 'react-native-mask-input';
+import {Mask} from 'react-native-mask-input/src/formatWithMask.types';
 
 interface IInput {
   label: string;
@@ -24,6 +26,8 @@ interface IInput {
   marginTop?: number;
   iconPadding?: number;
   shadow?: boolean;
+  secureTextEntry?: boolean;
+  mask?: Mask;
 }
 
 const Input = ({
@@ -37,10 +41,13 @@ const Input = ({
   inputKey,
   handlePressOnIcon,
   icon,
+  disabled = false,
   multiline = false,
   iconPadding,
   marginTop,
   shadow,
+  secureTextEntry = false,
+  mask,
   ...props
 }: IInput) => {
   const input: any = useRef(null);
@@ -68,18 +75,35 @@ const Input = ({
             : [styles.inputContainer, shadow && styles.shadowInput]
         }
         pointerEvents={!editable ? 'none' : 'auto'}>
-        <TextInput
-          ref={input}
-          placeholder={placeholder}
-          placeholderTextColor={Colors.gray300}
-          autoCapitalize="none"
-          keyboardType={keyboardType ?? 'default'}
-          value={value}
-          multiline={multiline}
-          style={styles.inputStyle}
-          onChangeText={handleChange}
-          {...props}
-        />
+        {!mask ? (
+          <TextInput
+            ref={input}
+            placeholder={placeholder}
+            placeholderTextColor={Colors.gray300}
+            autoCapitalize="none"
+            keyboardType={keyboardType ?? 'default'}
+            value={value}
+            secureTextEntry={secureTextEntry}
+            multiline={multiline}
+            style={styles.inputStyle}
+            onChangeText={handleChange}
+            {...props}
+          />
+        ) : (
+          <MaskInput
+            ref={input}
+            placeholder={placeholder}
+            placeholderTextColor={Colors.gray300}
+            autoCapitalize="none"
+            keyboardType={keyboardType ?? 'default'}
+            value={value}
+            secureTextEntry={secureTextEntry}
+            style={styles.inputStyle}
+            onChangeText={formatted => handleChange(formatted)}
+            mask={mask}
+          />
+        )}
+
         {icon ? (
           <TouchableOpacity
             style={{marginLeft: iconPadding || 0}}
